@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+</head>
+<body>
+<header th:insert="blocks/header :: header"></header>
+<div class="container mt-3">
+    <h3>List of Events</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">User name</th>
+                <th scope="col">Book name</th>
+                <th scope="col">DateTime</th>
+                <th scope="col">Event name</th>
+            </tr>
+        </thead>
+        <div th:each="event : ${events}">
+            <tr>
+                <th th:text="${event.getUser().username}" scope="row"></th>
+                <th th:text="${event.getBook().name}" scope="row"></th>
+                <th th:text="${event.getDate()}" scope="row"></th>
+                <th th:text="${event.getEvent_name()}" scope="row"></th>
+            </tr>
+        </div>
+    </table>
+</div>
+</body>
+</html>
