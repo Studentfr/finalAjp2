@@ -3,8 +3,9 @@ package com.example.finalproj.rest.dto;
 import lombok.Data;
 
 @Data
-public class AnswerDto {
+public class AnswerWebDto {
     private long answerId;
     private String answerText;
     private long questionId;
+    private long count;
 }
