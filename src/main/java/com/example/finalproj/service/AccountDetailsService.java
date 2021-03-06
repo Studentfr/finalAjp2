@@ -28,7 +28,4 @@ public class AccountDetailsService implements UserDetailsService {
         return account;
     }
 
-    public void registerUser(Account account) {
-        accountRepository.save(account);
-    }
 }
