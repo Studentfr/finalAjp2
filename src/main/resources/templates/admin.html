@@ -7,40 +7,40 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<div class="container mt-3">
-    <div th:each="student : ${user}" class="alert alert-info mt-0">
-        <h4 th:text="${student.username}"/>
-        <p><b>Name: </b><span th:text="${student.name}"/></p>
-        <p><b>Surname: </b><span th:text="${student.surname}"/></p>
-        <a th:href="'/user/' + ${student.username} + '/edit'" class="btn btn-warning">Update user</a>
-        <a th:href="'/event/borrow/'+${student.username}" class="btn btn-warning">Borrow a Book</a>
-        <a th:href="'/user/' + ${student.username} + '/delete'" class="btn btn-warning">Delete user</a>
-    </div>
+<!--<div class="container mt-3">-->
+<!--    <div th:each="student : ${user}" class="alert alert-info mt-0">-->
+<!--        <h4 th:text="${student.username}"/>-->
+<!--        <p><b>Name: </b><span th:text="${student.name}"/></p>-->
+<!--        <p><b>Surname: </b><span th:text="${student.surname}"/></p>-->
+<!--        <a th:href="'/user/' + ${student.username} + '/edit'" class="btn btn-warning">Update user</a>-->
+<!--        <a th:href="'/event/borrow/'+${student.username}" class="btn btn-warning">Borrow a Book</a>-->
+<!--        <a th:href="'/user/' + ${student.username} + '/delete'" class="btn btn-warning">Delete user</a>-->
+<!--    </div>-->
 
-    <h3>List of Borrowed Books</h3>
-    <div th:each="book : ${books}" th:if="${book.deleted == false}" class="alert alert-info mt-0">
-        <a th:href="'/book/' + ${book.isbn}"><h4 th:text="${book.name}"/></a>
-        <a th:href="'/event/' + ${user.get(0).username} + '/return/' + ${book.isbn}" class="btn btn-warning">Return</a>
-    </div>
+<!--    <h3>List of Borrowed Books</h3>-->
+<!--    <div th:each="book : ${books}" th:if="${book.deleted == false}" class="alert alert-info mt-0">-->
+<!--        <a th:href="'/book/' + ${book.isbn}"><h4 th:text="${book.name}"/></a>-->
+<!--        <a th:href="'/event/' + ${user.get(0).username} + '/return/' + ${book.isbn}" class="btn btn-warning">Return</a>-->
+<!--    </div>-->
 
-    <h3>My History</h3>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Book name</th>
-            <th scope="col">DateTime</th>
-            <th scope="col">Event name</th>
-        </tr>
-        </thead>
-        <div th:each="event : ${history}">
-            <tr>
-                <th th:text="${event.getBook().name}" scope="row"></th>
-                <th th:text="${event.getDate()}" scope="row"></th>
-                <th th:text="${event.getEvent_name()}" scope="row"></th>
-            </tr>
-        </div>
-    </table>
+<!--    <h3>My History</h3>-->
+<!--    <table class="table">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="col">Book name</th>-->
+<!--            <th scope="col">DateTime</th>-->
+<!--            <th scope="col">Event name</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <div th:each="event : ${history}">-->
+<!--            <tr>-->
+<!--                <th th:text="${event.getBook().name}" scope="row"></th>-->
+<!--                <th th:text="${event.getDate()}" scope="row"></th>-->
+<!--                <th th:text="${event.getEvent_name()}" scope="row"></th>-->
+<!--            </tr>-->
+<!--        </div>-->
+<!--    </table>-->
 
-</div>
+<!--</div>-->
 </body>
 </html>
