@@ -4,9 +4,8 @@
         <p class="h5 my-0 me-md-auto fw-normal">Dashboard</p>
         <nav class="my-2 my-md-0 me-md-3">
             <a class="p-2 text-dark" href="/">Home</a>
-            <a class="p-2 text-dark" href="/register">Add user</a>
-            <a class="p-2 text-dark" href="/book/addBook">Add question</a>
-            <a class="p-2 text-dark" href="/event/events">See events</a>
+            <a class="p-2 text-dark" th:href="'/user/' + ${user.userId}">Profile</a>
+            <a class="p-2 text-dark" href="/book/addBook">Admin</a>
         </nav>
         <a class="btn btn-outline-primary" href="#">Sign out</a>
     </header>
