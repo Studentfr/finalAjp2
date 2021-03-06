@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private UserService userService;
+    private AccountDetailsService accountDetailsService;
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, AccountDetailsService accountDetailsService) {
         this.userService = userService;
+        this.accountDetailsService = accountDetailsService;
     }
 
     @GetMapping("/{id}")
@@ -33,5 +35,11 @@ public class UserController {
     public String updateUser(@ModelAttribute("user") Account user, @PathVariable(value = "id") Long id){
         userService.updateUser(id, user);
         return "redirect:/";
+    }
+
+    @GetMapping("/admin")
+    public String toAdmin(Model model){
+        model.addAttribute("user", accountDetailsService.getAccount());
+        return "admin";
     }
 }
