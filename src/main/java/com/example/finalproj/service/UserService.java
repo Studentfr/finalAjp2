@@ -26,4 +26,17 @@ public class UserService {
     public Account getUser(Long id) {
         return accountRepository.getOne(id);
     }
+
+    public Account findByUsername(String username){
+        return accountRepository.findByUsername(username);
+    }
+    public void updateUser(Long id, Account user){
+        Account updatedUser = accountRepository.findById(id).get();
+        updatedUser.setFirstName(user.getFirstName());
+        updatedUser.setLastName(user.getLastName());
+        updatedUser.setAge(user.getAge());
+        updatedUser.setGroupName(user.getGroupName());
+        updatedUser.setInterest(user.getInterest());
+        accountRepository.save(updatedUser);
+    }
 }

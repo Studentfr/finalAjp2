@@ -1,13 +1,12 @@
 package com.example.finalproj.controller;
 
+import com.example.finalproj.repository.dto.Account;
 import com.example.finalproj.service.AccountDetailsService;
 import com.example.finalproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -24,5 +23,15 @@ public class UserController {
     public String toUser(@PathVariable(value = "id") Long id, Model model){
         model.addAttribute("user", userService.getUser(id));
         return "profile";
+    }
+    @GetMapping("/{id}/edit")
+    public String updateUser(@PathVariable(value = "id") Long id, Model model){
+        model.addAttribute("user", new Account());
+        return "updateUser";
+    }
+    @PostMapping("/{id}/edit")
+    public String updateUser(@ModelAttribute("user") Account user, @PathVariable(value = "id") Long id){
+        userService.updateUser(id, user);
+        return "redirect:/";
     }
 }

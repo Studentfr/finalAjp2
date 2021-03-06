@@ -15,9 +15,7 @@
         <p><b>Age: </b><span th:text="${user.age}"></span></p>
         <p><b>Interest: </b><span th:text="${user.interest}"></span></p>
         <p><b>Group: </b><span th:text="${user.groupName}"></span></p>
-        <a th:href="'/user/' + ${user.username} + '/edit'" class="btn btn-warning">Update user</a>
-        <a th:href="'/event/borrow/'+${user.username}" class="btn btn-warning">Borrow a Book</a>
-        <a th:href="'/user/' + ${user.username} + '/delete'" class="btn btn-warning">Delete user</a>
+        <a th:href="'/user/' + ${user.userId} + '/edit'" class="btn btn-warning">Update user</a>
     </div>
 
     <!--<h3>List of Borrowed Books</h3>
