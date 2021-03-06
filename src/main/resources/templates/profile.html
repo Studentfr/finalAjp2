@@ -8,16 +8,19 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-3">
-    <div th:each="student : ${user}" class="alert alert-info mt-0">
-        <h4 th:text="${student.username}"/>
-        <p><b>Name: </b><span th:text="${student.name}"/></p>
-        <p><b>Surname: </b><span th:text="${student.surname}"/></p>
-        <a th:href="'/user/' + ${student.username} + '/edit'" class="btn btn-warning">Update user</a>
-        <a th:href="'/event/borrow/'+${student.username}" class="btn btn-warning">Borrow a Book</a>
-        <a th:href="'/user/' + ${student.username} + '/delete'" class="btn btn-warning">Delete user</a>
+    <div th:object="${user}" class="alert alert-info mt-0">
+        <h4 th:text="${user.username}"></h4>
+        <p><b>Name: </b><span th:text="${user.firstName}"></span></p>
+        <p><b>Surname: </b><span th:text="${user.lastName}"></span></p>
+        <p><b>Age: </b><span th:text="${user.age}"></span></p>
+        <p><b>Interest: </b><span th:text="${user.interest}"></span></p>
+        <p><b>Group: </b><span th:text="${user.groupName}"></span></p>
+        <a th:href="'/user/' + ${user.username} + '/edit'" class="btn btn-warning">Update user</a>
+        <a th:href="'/event/borrow/'+${user.username}" class="btn btn-warning">Borrow a Book</a>
+        <a th:href="'/user/' + ${user.username} + '/delete'" class="btn btn-warning">Delete user</a>
     </div>
 
-    <h3>List of Borrowed Books</h3>
+    <!--<h3>List of Borrowed Books</h3>
     <div th:each="book : ${books}" th:if="${book.deleted == false}" class="alert alert-info mt-0">
         <a th:href="'/book/' + ${book.isbn}"><h4 th:text="${book.name}"/></a>
         <a th:href="'/event/' + ${user.get(0).username} + '/return/' + ${book.isbn}" class="btn btn-warning">Return</a>
@@ -40,7 +43,7 @@
             </tr>
         </div>
     </table>
-
+-->
 </div>
 </body>
 </html>
