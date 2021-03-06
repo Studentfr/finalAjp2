@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long answerId;
 
     private String answerText;
