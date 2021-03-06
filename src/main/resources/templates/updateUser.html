@@ -8,9 +8,11 @@
 <header th:insert="blocks/header :: header"></header>
 <h1>Edit Student</h1>
 <form class="form" th:method="POST" th:object="${user}">
-    <input type="text" class="input" placeholder="Name" th:field="*{name}">
-    <input type="text" class="input" placeholder="Surname" th:field="*{surname}">
-    <input type="password" class="input" placeholder="Password" th:field="*{password}">
+    <input type="text" class="input" placeholder="firstname" th:field="*{firstName}">
+    <input type="text" class="input" placeholder="lastname" th:field="*{lastName}">
+    <input type="text" class="input" placeholder="groupname" th:field="*{groupName}">
+    <input type="text" class="input" placeholder="age" th:field="*{age}">
+    <input type="text" class="input" placeholder="interest" th:field="*{interest}">
     <input type="submit" class="submit" value="Update">
 </form>
 </body>

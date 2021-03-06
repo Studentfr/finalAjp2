@@ -13,6 +13,7 @@ public class AccountDetailsService implements UserDetailsService {
 
 
     private final AccountRepository accountRepository;
+    private Account account;
 
     @Autowired
     public AccountDetailsService(AccountRepository accountRepository) {
@@ -22,10 +23,14 @@ public class AccountDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Account account = accountRepository.findByUsername(s);
+        this.account = account;
         if (account == null) {
             throw new UsernameNotFoundException("Account with such username doesn't exist");
         }
         return account;
+    }
+    public Account getAccount(){
+        return this.account;
     }
 
 }

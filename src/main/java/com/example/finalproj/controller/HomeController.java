@@ -20,17 +20,21 @@ public class HomeController {
     private AccountDetailsService accountDetailsService;
     private UserService userService;
 
+    @Autowired
     public HomeController(RoleService roleService, AccountDetailsService accountDetailsService, UserService userService) {
         this.roleService = roleService;
         this.accountDetailsService = accountDetailsService;
         this.userService = userService;
     }
 
-    @Autowired
-
 
     @GetMapping
-    public String toHome(){
+    public String toHome(Model model){
+        return "redirect:/home";
+    }
+    @GetMapping("/home")
+    public String home(Model model){
+        model.addAttribute("user", accountDetailsService.getAccount());
         return "home";
     }
 
