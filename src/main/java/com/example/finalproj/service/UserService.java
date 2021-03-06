@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private AccountRepository accountRepository;
@@ -25,5 +27,9 @@ public class UserService {
 
     public Account getUser(Long id) {
         return accountRepository.getOne(id);
+    }
+
+    public List<Account> getAllUsers() {
+        return accountRepository.findAll();
     }
 }
