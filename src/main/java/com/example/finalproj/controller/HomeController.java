@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -40,10 +41,11 @@ public class HomeController {
         return "redirect:/home";
     }
     @GetMapping("/home")
-    public String home(Model model){
+    public String home(Model model, HttpSession session){
         model.addAttribute("user", accountDetailsService.getAccount());
         model.addAttribute("question", questionService.getAllQuestions());
         model.addAttribute("answer", questionService.getAllAnswers());
+        System.out.println(session.getAttribute("user"));
         return "home";
     }
 

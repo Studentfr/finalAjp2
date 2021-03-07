@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 
 @Configuration
@@ -19,7 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
-
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,8 +29,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    public SpringSecurityConfig(@Qualifier("accountDetailsService") UserDetailsService userDetailsService){
+    public SpringSecurityConfig(@Qualifier("accountDetailsService") UserDetailsService userDetailsService,
+                                AuthenticationSuccessHandler authenticationSuccessHandler){
         this.userDetailsService = userDetailsService;
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
 
     @Bean
@@ -53,9 +56,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 //Настройка для входа в систему
-                .formLogin()
+                .formLogin().successHandler(authenticationSuccessHandler)
                 //Перенарпавление на главную страницу после успешного входа
-                .defaultSuccessUrl("/")
+                //.defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()
