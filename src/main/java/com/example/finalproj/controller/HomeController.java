@@ -4,6 +4,7 @@ import com.example.finalproj.repository.RoleRepository;
 import com.example.finalproj.repository.dto.Account;
 import com.example.finalproj.repository.dto.Answer;
 import com.example.finalproj.repository.dto.Question;
+import com.example.finalproj.repository.dto.Vote;
 import com.example.finalproj.service.AccountDetailsService;
 import com.example.finalproj.service.QuestionService;
 import com.example.finalproj.service.RoleService;
@@ -41,6 +42,7 @@ public class HomeController {
         model.addAttribute("user", accountDetailsService.getAccount());
         model.addAttribute("question", questionService.getAllQuestions());
         model.addAttribute("answers", questionService.getAllAnswers());
+        model.addAttribute("chosenAns", new Answer());
         return "home";
     }
 
@@ -58,10 +60,9 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @GetMapping("/answer/{ans}")
-    public String answer(@PathVariable("ans") long answer, @ModelAttribute("user")Account user){
-        System.out.println(answer);
-        questionService.setVote(answer,user);
+    @PostMapping("/home")
+    public String answer(@ModelAttribute("chosenAns") Answer ans){
+        questionService.setVote(ans.getAnswerId(),accountDetailsService.getAccount());
         return "redirect:/";
     }
 
