@@ -33,10 +33,10 @@ public class QuestionService {
     public List<Answer> getAllAnswers(){
         return answerRepository.findAll();
     }
-    public void setVote(Question q, Answer a, Account u){
+    public void setVote(long a, Account u){
         Vote vote = new Vote();
-        vote.setQuestion(q);
-        vote.setAnswer(a);
+        Answer ans = answerRepository.getAnswerByAnswerId(a);
+        vote.setAnswer(ans);
         vote.setDate(new Timestamp(new Date().getTime()));
         vote.setUser(u);
         voteRepository.save(vote);

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -35,6 +36,9 @@ public class Account implements UserDetails {
     private int age;
 
     private String interest;
+
+    @OneToMany(mappedBy = "user")
+    private List<Vote> votes;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
