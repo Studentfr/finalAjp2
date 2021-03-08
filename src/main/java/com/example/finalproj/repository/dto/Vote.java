@@ -14,18 +14,14 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Vote {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long voteId;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private Account user;
 
-    @OneToOne
-    @JoinColumn(name = "question_id")
-    private Question question;
-
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "answer_id")
     private Answer answer;
 

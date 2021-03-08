@@ -18,6 +18,7 @@ public class Question {
 
     private String questionText;
 
+
     @OneToMany(mappedBy = "question")
     private List<Answer> answerOptions;
 }

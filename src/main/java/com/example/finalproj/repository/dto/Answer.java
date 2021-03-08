@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -16,6 +17,9 @@ public class Answer {
     private long answerId;
 
     private String answerText;
+
+    @OneToMany(mappedBy = "answer")
+    private List<Vote> votes;
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)

@@ -11,10 +11,7 @@ import com.example.finalproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,7 +40,7 @@ public class HomeController {
     public String home(Model model){
         model.addAttribute("user", accountDetailsService.getAccount());
         model.addAttribute("question", questionService.getAllQuestions());
-        model.addAttribute("answer", questionService.getAllAnswers());
+        model.addAttribute("answers", questionService.getAllAnswers());
         return "home";
     }
 
@@ -61,9 +58,10 @@ public class HomeController {
         return "redirect:/";
     }
 
-    @PostMapping("/home")
-    public String answer(@ModelAttribute("q")Question question, @ModelAttribute("a")Answer answer, @ModelAttribute("user")Account user){
-        questionService.setVote(question,answer,user);
+    @GetMapping("/answer/{ans}")
+    public String answer(@PathVariable("ans") long answer, @ModelAttribute("user")Account user){
+        System.out.println(answer);
+        questionService.setVote(answer,user);
         return "redirect:/";
     }
 
