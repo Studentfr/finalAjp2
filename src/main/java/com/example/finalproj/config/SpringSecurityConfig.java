@@ -47,6 +47,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .disable()
                 .authorizeRequests()
                 //Доступ только для не зарегистрированных пользователей
+                .antMatchers("/user/admin").hasRole("ADMIN") // TODO слушайте блят, ставьте в бд ROLE_ADMIN чтоб этот код работал
                 //Доступ разрешен всем пользователей
                 .antMatchers("/", "/resources/", "/css/", "/js/", "/images/**").permitAll()
                 //Все остальные страницы требуют аутентификации
