@@ -2,6 +2,7 @@ package com.example.finalproj.controller;
 
 import com.example.finalproj.repository.dto.Account;
 import com.example.finalproj.service.AccountDetailsService;
+import com.example.finalproj.service.QuestionService;
 import com.example.finalproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,9 +16,11 @@ public class UserController {
 
     private UserService userService;
     private AccountDetailsService accountDetailsService;
+    private QuestionService questionService;
     @Autowired
-    public UserController(UserService userService, AccountDetailsService accountDetailsService) {
+    public UserController(UserService userService, AccountDetailsService accountDetailsService, QuestionService questionService) {
         this.userService = userService;
+        this.questionService = questionService;
         this.accountDetailsService = accountDetailsService;
     }
 
@@ -39,7 +42,9 @@ public class UserController {
 
     @GetMapping("/admin")
     public String toAdmin(Model model){
+        model.addAttribute("question", questionService.getAllQuestions());
         model.addAttribute("user", accountDetailsService.getAccount());
+        model.addAttribute("users", userService.getAllUsers());
         return "admin";
     }
 }
