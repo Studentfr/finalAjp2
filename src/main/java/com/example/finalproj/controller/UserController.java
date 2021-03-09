@@ -35,11 +35,14 @@ public class UserController {
     @GetMapping("/{id}")
     public String toUser(@PathVariable(value = "id") Long id, Model model){
         model.addAttribute("user", userService.getUser(id));
+        model.addAttribute("currentUser", accountDetailsService.getAccount());
         return "profile";
     }
     @GetMapping("/{id}/edit")
     public String updateUser(@PathVariable(value = "id") Long id, Model model){
         model.addAttribute("user", new Account());
+        model.addAttribute("roles", roleService.getRoles());
+        model.addAttribute("currentUser", accountDetailsService.getAccount());
         return "updateUser";
     }
     @PostMapping("/{id}/edit")
@@ -92,6 +95,28 @@ public class UserController {
     @GetMapping("/deleteUser/{id}")
     public String deleteUser(@PathVariable(value = "id")Long id){
         userService.deleteUser(id);
+        return "redirect:/";
+    }
+    @GetMapping("/question/{id}")
+    public String toQuestion(@PathVariable(value = "id")Long id, Model model){
+        model.addAttribute("question", questionService.getQuestion(id));
+        model.addAttribute("answers", questionService.getAllAnswers());
+        return "question";
+    }
+    @GetMapping("/updateQuestion/{id}")
+    public String updateQuestion(@PathVariable(value = "id")Long id, Model model){
+        List<Answer> answers = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            answers.add(new Answer());
+        }
+        questionService.getQuestion(id).setAnswerOptions(answers);
+        model.addAttribute("question", questionService.getQuestion(id));
+        return "updateQuestion";
+    }
+    @PostMapping("/updateQuestion/{id}")
+    public String updateQ(@PathVariable(value = "id")Long id, @ModelAttribute("question") Question question){
+        questionService.updateQuestion(id, question);
+        questionService.updateAnswers(id, question);
         return "redirect:/";
     }
 }

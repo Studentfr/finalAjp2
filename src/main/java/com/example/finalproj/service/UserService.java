@@ -40,6 +40,9 @@ public class UserService {
         updatedUser.setAge(user.getAge());
         updatedUser.setGroupName(user.getGroupName());
         updatedUser.setInterest(user.getInterest());
+        if (user.getRole() != null){
+            updatedUser.setRole(user.getRole());
+        }
         accountRepository.save(updatedUser);
     }
 

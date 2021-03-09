@@ -6,12 +6,13 @@
 </head>
 <body>
 <header th:insert="blocks/header :: header"></header>
-<h1>Edit Book</h1>
-    <form class="form" th:method="POST" th:object="${book}">
-        <input type="text" class="input" placeholder="Name of the book" th:field="*{name}">
-        <input type="text" class="input" placeholder="Author of the book" th:field="*{author}">
-        <input type="number" class="input" placeholder="Count of copies" th:field="*{count}">
-        <input type="submit" class="submit" value="Update">
-    </form>
+<h1>Update Question</h1>
+<form class="form" method="post" th:object="${question}">
+    <input type="text" class="input" placeholder="Question text" th:field="*{questionText}">
+    <input type="text" class="input" placeholder="Answer 1" th:field="*{answerOptions[0].answerText}">
+    <input type="text" class="input" placeholder="Answer 2" th:field="*{answerOptions[1].answerText}">
+    <input type="text" class="input" placeholder="Answer 3" th:field="*{answerOptions[2].answerText}">
+    <input type="submit" class="submit" value="Update question">
+</form>
 </body>
 </html>
