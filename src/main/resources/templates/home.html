@@ -20,11 +20,11 @@
 <div class="container mt-3">
     <h3>List of questions</h3>
     <div th:each="q : ${question}" class="alert alert-info mt-0">
-        <form method="post">
+        <form method="post" th:object="${chosenAns}">
             <h4 th:text="${q.questionText}" />
-            <div th:each="a : ${answer}" th:if="${a.question.questionId == q.questionId}">
-                <input type="radio" id="ans" th:name="${q.questionId}" th:value="${a.answerText}">
-                <label for="ans" th:text="${a.answerText}"/>
+            <div th:each="a : ${answers}" th:if="${a.question.questionId == q.questionId}">
+                <input type="radio" th:id="${a.answerId}" th:name="${q.questionId}" th:value="${a.answerId}" th:field="*{answerId}">
+                <label th:for="${a.answerId}" th:text="${a.answerText}"/>
             </div>
             <input type="submit" value="Answer">
         </form>

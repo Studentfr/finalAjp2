@@ -13,6 +13,10 @@
     <input type="text" class="input" placeholder="groupname" th:field="*{groupName}">
     <input type="text" class="input" placeholder="age" th:field="*{age}">
     <input type="text" class="input" placeholder="interest" th:field="*{interest}">
+    <div th:if="${currentUser.role.roleId == 1}" th:each="role : ${roles}">
+        <input type="radio" th:id="${role.roleId}" th:name="${user.role}" th:value="${role.roleId}" th:field="*{role.roleId}">
+        <label th:for="${role.roleId}" th:text="${role.roleName}"/>
+    </div>
     <input type="submit" class="submit" value="Update">
 </form>
 </body>

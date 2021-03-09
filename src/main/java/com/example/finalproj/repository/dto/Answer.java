@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,10 +13,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Answer {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long answerId;
 
     private String answerText;
+
+    @OneToMany(mappedBy = "answer")
+    private List<Vote> votes;
 
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)

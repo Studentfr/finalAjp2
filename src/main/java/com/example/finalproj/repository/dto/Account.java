@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -19,7 +20,7 @@ import java.util.Set;
 public class Account implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
 
     private String username;
@@ -35,6 +36,9 @@ public class Account implements UserDetails {
     private int age;
 
     private String interest;
+
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private List<Vote> votes;
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)

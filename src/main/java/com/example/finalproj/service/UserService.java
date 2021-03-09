@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,10 +40,18 @@ public class UserService {
         updatedUser.setAge(user.getAge());
         updatedUser.setGroupName(user.getGroupName());
         updatedUser.setInterest(user.getInterest());
+        if (user.getRole() != null){
+            updatedUser.setRole(user.getRole());
+        }
         accountRepository.save(updatedUser);
     }
 
     public List<Account> getAllUsers() {
         return accountRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteUser(Long id){
+        accountRepository.deleteAccountByUserId(id);
     }
 }
