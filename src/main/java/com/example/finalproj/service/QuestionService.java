@@ -62,4 +62,24 @@ public class QuestionService {
         questionRepository.deleteQuestionByQuestionId(id);
     }
 
+    public Question getQuestion(Long id){
+        return questionRepository.getQuestionByQuestionId(id);
+    }
+    public void updateQuestion(Long id, Question question){
+        Question updatedQ = questionRepository.findById(id).get();
+        updatedQ.setQuestionText(question.getQuestionText());
+        updatedQ.setAnswerOptions(question.getAnswerOptions());
+        questionRepository.save(updatedQ);
+    }
+    public void updateAnswers(Long id, Question question){
+        Question updatedQ = questionRepository.findById(id).get();
+        for (Answer a : question.getAnswerOptions()) {
+            a.setQuestion(updatedQ);
+            answerRepository.save(a);
+        }
+    }
+    public List<Answer> getAllAnswersByQuestionId(Long id){
+        return answerRepository.getAnswersByQuestion(questionRepository.getQuestionByQuestionId(id));
+    }
+
 }

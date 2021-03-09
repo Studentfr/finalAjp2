@@ -15,6 +15,7 @@
         <p><b>Age: </b><span th:text="${user.age}"></span></p>
         <p><b>Interest: </b><span th:text="${user.interest}"></span></p>
         <p><b>Group: </b><span th:text="${user.groupName}"></span></p>
+        <p th:if="${currentUser.role.roleId == 1}"><b>Role: </b><span th:text="${user.role.roleName}"></span></p>
         <a th:href="'/user/' + ${user.userId} + '/edit'" class="btn btn-warning">Update user</a>
     </div>
 

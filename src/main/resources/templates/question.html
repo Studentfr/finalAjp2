@@ -8,11 +8,13 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 <div class="container mt-3">
-    <div th:each="book1 : ${book}" class="alert alert-info mt-0">
-        <h4 th:text="${book1.name}"/>
-        <p><b>Author: </b><span th:text="${book1.author}"/></p>
-        <p><b>Count: </b><span th:text="${book1.count}"/></p>
-        <a th:href="'/book/' + ${book1.isbn} + '/edit'" class="btn btn-warning">Update book</a>
+    <div th:object="${question}" class="alert alert-info mt-0">
+        <h4 th:text="${question.questionText}" />
+        <div th:each="a : ${answers}" th:if="${a.question.questionId == question.questionId}">
+            <input type="radio" th:id="${a.answerId}" th:name="${question.questionId}" th:value="${a.answerId}" th:field="*{questionId}">
+            <label th:for="${a.answerId}" th:text="${a.answerText}"/>
+        </div>
+        <a th:href="'/user/updateQuestion/' + ${question.questionId}" class="btn btn-warning">Update question</a>
     </div>
 </div>
 </body>
