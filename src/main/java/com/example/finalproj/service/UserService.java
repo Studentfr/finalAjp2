@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -44,5 +45,10 @@ public class UserService {
 
     public List<Account> getAllUsers() {
         return accountRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteUser(Long id){
+        accountRepository.deleteAccountByUserId(id);
     }
 }

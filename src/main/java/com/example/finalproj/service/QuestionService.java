@@ -9,6 +9,7 @@ import com.example.finalproj.repository.dto.Question;
 import com.example.finalproj.repository.dto.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -40,6 +41,25 @@ public class QuestionService {
         vote.setDate(new Timestamp(new Date().getTime()));
         vote.setUser(u);
         voteRepository.save(vote);
+    }
+    public void registerQuestion(Question question){
+        questionRepository.save(question);
+    }
+    public void registerAnswers(Question question){
+        for (Answer a : question.getAnswerOptions()) {
+            a.setQuestion(question);
+            answerRepository.save(a);
+        }
+    }
+    @Transactional
+    public void deleteQuestion(Long id){
+        List<Answer> answers = answerRepository.getAnswersByQuestion(questionRepository.getQuestionByQuestionId(id));
+        for (Answer a: answers
+             ) {
+            voteRepository.deleteVotesByAnswer(a);
+        }
+        answerRepository.deleteAnswersByQuestion(questionRepository.getQuestionByQuestionId(id));
+        questionRepository.deleteQuestionByQuestionId(id);
     }
 
 }
