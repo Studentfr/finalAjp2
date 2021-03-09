@@ -46,20 +46,6 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/register")
-    public String toAddUser(Model model){
-        model.addAttribute("user", new Account());
-        model.addAttribute("roles", roleService.getRoles());
-        return "addUser";
-    }
-
-    @PostMapping("/register")
-    public String addUser(@ModelAttribute("user") Account account) {
-        account.setRole(roleService.getRole(account.getRole().getRoleId()));
-        userService.registerUser(account);
-        return "redirect:/";
-    }
-
     @PostMapping("/home")
     public String answer(@ModelAttribute("chosenAns") Answer ans){
         questionService.setVote(ans.getAnswerId(),accountDetailsService.getAccount());

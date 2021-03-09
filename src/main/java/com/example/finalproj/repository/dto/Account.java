@@ -20,7 +20,7 @@ import java.util.Set;
 public class Account implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
 
     private String username;
@@ -37,7 +37,7 @@ public class Account implements UserDetails {
 
     private String interest;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Vote> votes;
 
     @ManyToOne
