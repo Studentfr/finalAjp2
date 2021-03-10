@@ -3,10 +3,7 @@ package com.example.finalproj.controller;
 import com.example.finalproj.repository.dto.Account;
 import com.example.finalproj.repository.dto.Answer;
 import com.example.finalproj.repository.dto.Question;
-import com.example.finalproj.service.AccountDetailsService;
-import com.example.finalproj.service.QuestionService;
-import com.example.finalproj.service.RoleService;
-import com.example.finalproj.service.UserService;
+import com.example.finalproj.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,22 +17,26 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private UserService userService;
-    private AccountDetailsService accountDetailsService;
-    private QuestionService questionService;
-    private RoleService roleService;
+    private final UserService userService;
+    private final AccountDetailsService accountDetailsService;
+    private final QuestionService questionService;
+    private final RoleService roleService;
+    private final VoteService voteService;
+
     @Autowired
-    public UserController(UserService userService, AccountDetailsService accountDetailsService, QuestionService questionService, RoleService roleService) {
+    public UserController(UserService userService, AccountDetailsService accountDetailsService, QuestionService questionService, RoleService roleService, VoteService voteService) {
         this.userService = userService;
         this.roleService = roleService;
         this.questionService = questionService;
         this.accountDetailsService = accountDetailsService;
+        this.voteService = voteService;
     }
 
     @GetMapping("/{id}")
     public String toUser(@PathVariable(value = "id") Long id, Model model){
         model.addAttribute("user", userService.getUser(id));
         model.addAttribute("currentUser", accountDetailsService.getAccount());
+        model.addAttribute("votes", voteService.getVotesByUserId(id));
         return "profile";
     }
     @GetMapping("/{id}/edit")
