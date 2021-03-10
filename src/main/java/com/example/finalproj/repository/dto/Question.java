@@ -21,4 +21,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answerOptions;
+
+    @Transient
+    private long statistic = 0;
 }

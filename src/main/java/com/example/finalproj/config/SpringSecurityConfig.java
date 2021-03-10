@@ -1,5 +1,8 @@
 package com.example.finalproj.config;
 
+import com.example.finalproj.logger.LoginLogger;
+import com.example.finalproj.repository.AccountRepository;
+import com.example.finalproj.repository.dto.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -14,13 +17,34 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import javax.servlet.http.HttpSession;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private UserDetailsService userDetailsService;
-    private AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AccountRepository accountRepository;
+
+    private AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return ((request, response, authentication) -> {
+            String username = request.getParameter("username");
+            Account user = accountRepository.findByUsername(username);
+
+            HttpSession session = request.getSession();
+            session.setMaxInactiveInterval(60 * 60 * 5); //5 hours
+            session.setAttribute("user", user);
+
+            ExecutorService executorService = Executors.newFixedThreadPool(1);
+            executorService.execute(new LoginLogger(user));
+
+            response.sendRedirect("/");
+            executorService.shutdown();
+        });
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -29,10 +53,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    public SpringSecurityConfig(@Qualifier("accountDetailsService") UserDetailsService userDetailsService,
-                                AuthenticationSuccessHandler authenticationSuccessHandler){
+    public SpringSecurityConfig(@Qualifier("accountDetailsService") UserDetailsService userDetailsService, AccountRepository accountRepository){
         this.userDetailsService = userDetailsService;
-        this.authenticationSuccessHandler = authenticationSuccessHandler;
+        this.accountRepository = accountRepository;
     }
 
     @Bean
@@ -58,6 +81,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 //Настройка для входа в систему
                 .formLogin()
+                .successHandler(authenticationSuccessHandler())
                 //Перенарпавление на главную страницу после успешного входа
                 .permitAll()
                 .and()
