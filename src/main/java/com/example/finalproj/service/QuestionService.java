@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +28,67 @@ public class QuestionService {
         this.questionRepository = questionRepository;
         this.voteRepository = voteRepository;
         this.answerRepository = answerRepository;
+    }
+
+    public List<Question> getAllAnsweredQuestions(Account account) {
+        List<Vote> userVotes = voteRepository.findAllByUserUserId(account.getUserId());
+        List<Vote> votes = voteRepository.findAll();
+        List<Question> questions = questionRepository.findAll();
+        for (Question q : questions) {
+            for (Vote v : votes) {
+                if (v.getAnswer().getQuestion() == q) {
+                    q.setStatistic(q.getStatistic()+1);
+                }
+            }
+        }
+        return getAnsweredQuestions(questions, userVotes);
+    }
+
+    public List<Answer> getAllAnsweredAnswers(Account account) {
+        List<Question> questions = questionRepository.findAll();
+        List<Vote> votes = voteRepository.findAll();
+        List<Vote> userVotes = voteRepository.findAllByUserUserId(account.getUserId());
+        List<Answer> answers = new ArrayList<>();
+        List<Question> r = getAnsweredQuestions(questions, userVotes);
+        for (Question q : r) {
+            for (Answer a : q.getAnswerOptions()) {
+                for (Vote v : votes) {
+                    if (v.getAnswer().getAnswerId() == a.getAnswerId()) {
+                        a.setStatistic(a.getStatistic()+1);
+                    }
+                }
+                a.setStatistic(a.getStatistic()/q.getStatistic()*100);
+                answers.add(a);
+            }
+        }
+        return answers;
+    }
+
+    private List<Question> getAnsweredQuestions(List<Question> questions, List<Vote> votes) {
+        List<Question> r = new ArrayList<>();
+        for (Question q : questions) {
+            for (Vote v : votes) {
+                if (v.getAnswer().getQuestion().getQuestionId() == q.getQuestionId()) {
+                    r.add(q);
+                }
+            }
+        }
+        return r;
+    }
+
+    public List<Question> getAllNonAnsweredQuestions(Account account) {
+        List<Vote> votes = voteRepository.findAllByUserUserId(account.getUserId());
+        List<Question> questions = questionRepository.findAll();
+        for (Vote v : votes) {
+            for (Question q : questions) {
+                if (v.getAnswer().getQuestion() == q) {
+                    questions.remove(q);
+                    break;
+                }
+            }
+        }
+
+        return questions;
     }
 
     public List<Question> getAllQuestions(){

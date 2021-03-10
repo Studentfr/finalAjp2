@@ -24,4 +24,7 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
+
+    @Transient
+    private float statistic = 0;
 }

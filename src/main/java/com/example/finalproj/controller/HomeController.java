@@ -40,8 +40,10 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model){
         model.addAttribute("user", accountDetailsService.getAccount());
-        model.addAttribute("question", questionService.getAllQuestions());
+        model.addAttribute("question", questionService.getAllNonAnsweredQuestions(accountDetailsService.getAccount()));
         model.addAttribute("answers", questionService.getAllAnswers());
+        model.addAttribute("question2", questionService.getAllAnsweredQuestions(accountDetailsService.getAccount()));
+        model.addAttribute("answers2", questionService.getAllAnsweredAnswers(accountDetailsService.getAccount()));
         model.addAttribute("chosenAns", new Answer());
         return "home";
     }
