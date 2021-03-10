@@ -29,7 +29,20 @@
             <input type="submit" value="Answer">
         </form>
     </div>
-
 </div>
+
+<div class="container mt-3">
+    <h3>List of statistics</h3>
+    <div th:each="q : ${question2}" class="alert alert-info mt-0">
+        <form method="post" th:object="${chosenAns}">
+            <h4 th:text="${q.questionText}" />
+            <h4 th:text="'Total answers: '+${q.statistic}"/>
+            <div th:each="a : ${answers2}" th:if="${a.question.questionId == q.questionId}">
+                <p th:id="${a.answerId}" th:text="${a.answerText}+' - '+${a.statistic}+'%'"></p>
+            </div>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
