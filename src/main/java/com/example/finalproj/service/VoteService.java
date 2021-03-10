@@ -23,4 +23,8 @@ public class VoteService {
         }
         return votes;
     }
+
+    public void save(Vote vote) {
+        voteRepository.save(vote);
+    }
 }

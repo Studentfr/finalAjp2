@@ -71,4 +71,18 @@ public class Account implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", groupName='" + groupName + '\'' +
+                ", age=" + age +
+                ", interest='" + interest + '\'' +
+                '}';
+    }
 }

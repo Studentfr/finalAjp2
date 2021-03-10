@@ -6,6 +6,4 @@ import lombok.Data;
 public class AnswerWebDto {
     private long answerId;
     private String answerText;
-    private long questionId;
-    private long count;
 }
