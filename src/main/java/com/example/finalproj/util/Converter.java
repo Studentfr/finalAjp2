@@ -40,7 +40,6 @@ public class Converter {
             AnswerWebDto dto = new AnswerWebDto();
             dto.setAnswerId(a.getAnswerId());
             dto.setAnswerText(a.getAnswerText());
-            dto.setCount(a.getVotes().size());
             list.add(dto);
         }
         return list;
