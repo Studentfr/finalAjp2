@@ -19,30 +19,23 @@
         <a th:href="'/user/' + ${user.userId} + '/edit'" class="btn btn-warning">Update user</a>
     </div>
 
-    <!--<h3>List of Borrowed Books</h3>
-    <div th:each="book : ${books}" th:if="${book.deleted == false}" class="alert alert-info mt-0">
-        <a th:href="'/book/' + ${book.isbn}"><h4 th:text="${book.name}"/></a>
-        <a th:href="'/event/' + ${user.get(0).username} + '/return/' + ${book.isbn}" class="btn btn-warning">Return</a>
-    </div>
-
-    <h3>My History</h3>
+    <h3>My History of Votes</h3>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">Book name</th>
-            <th scope="col">DateTime</th>
-            <th scope="col">Event name</th>
+            <th scope="col">Question</th>
+            <th scope="col">Answer</th>
+            <th scope="col">Date</th>
         </tr>
         </thead>
-        <div th:each="event : ${history}">
+        <div th:each="vote : ${votes}">
             <tr>
-                <th th:text="${event.getBook().name}" scope="row"></th>
-                <th th:text="${event.getDate()}" scope="row"></th>
-                <th th:text="${event.getEvent_name()}" scope="row"></th>
+                <th th:text="${vote.answer.question.questionText}" scope="row"></th>
+                <th th:text="${vote.answer.answerText}" scope="row"></th>
+                <th th:text="${vote.date}" scope="row"></th>
             </tr>
         </div>
     </table>
--->
 </div>
 </body>
 </html>
