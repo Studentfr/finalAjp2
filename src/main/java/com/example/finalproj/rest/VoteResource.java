@@ -51,9 +51,6 @@ public class VoteResource {
 
     @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE})
     public void vote(@RequestBody VoteDto vote) {
-        Vote vote1 = new Vote();
-        vote1.setAnswer(answerRepository.getAnswerByAnswerId(vote.getAnswerId()));
-        vote1.setUser(userService.getUser(accountDetailsService.getAccount().getUserId()));
-        voteService.save(vote1);
+        questionService.setVote(vote.getAnswerId(), accountDetailsService.getAccount());
     }
 }

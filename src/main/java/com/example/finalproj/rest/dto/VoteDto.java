@@ -5,6 +5,5 @@ import java.sql.Timestamp;
 
 @Data
 public class VoteDto {
-    private long questionId;
     private long answerId;
 }
