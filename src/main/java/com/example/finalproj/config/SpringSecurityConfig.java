@@ -57,9 +57,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 //Настройка для входа в систему
-                .formLogin().successHandler(authenticationSuccessHandler)
+                .formLogin()
                 //Перенарпавление на главную страницу после успешного входа
-                //.defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()

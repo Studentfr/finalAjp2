@@ -1,14 +1,13 @@
 package com.example.finalproj.rest;
 
 import com.example.finalproj.repository.dto.Account;
+import com.example.finalproj.rest.dto.LoginDto;
 import com.example.finalproj.util.Converter;
 import com.example.finalproj.rest.dto.UserDto;
 import com.example.finalproj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +29,10 @@ public class UserResource {
     @GetMapping
     public List<Account> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @PostMapping(path = "login", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public void login(LoginDto dto) {
+
     }
 }
